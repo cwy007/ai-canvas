@@ -27,6 +27,8 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/serve-static": "^5.0.5",
     "ali-oss": "^6.23.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "dashscope-sdk-official": "^1.26.0",
     "dotenv": "^17.4.2",
     "reflect-metadata": "^0.2.2",

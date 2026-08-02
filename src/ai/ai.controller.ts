@@ -1,34 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { AiService } from './ai.service';
-import { CreateAiDto } from './dto/create-ai.dto';
-import { UpdateAiDto } from './dto/update-ai.dto';
+import { ImageDto } from './dto/image.dto';
 
 @Controller('ai')
 export class AiController {
-  constructor(private readonly aiService: AiService) {}
+  constructor(private readonly aiService: AiService) { }
 
-  @Post()
-  create(@Body() createAiDto: CreateAiDto) {
-    return this.aiService.create(createAiDto);
+  @Get('oss/upload-signature')
+  getUploadSignature(@Query('ext') ext?: string) {
+    return this.aiService.getUploadSignature(ext);
   }
 
-  @Get()
-  findAll() {
-    return this.aiService.findAll();
+  @Get('image/list')
+  listImages() {
+    return this.aiService.listImages();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.aiService.findOne(+id);
+  @Post('image')
+  createImage(@Body() dto: ImageDto) {
+    return this.aiService.createImage(dto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAiDto: UpdateAiDto) {
-    return this.aiService.update(+id, updateAiDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.aiService.remove(+id);
+  @Delete('image/:id')
+  deleteImage(@Param('id') id: string) {
+    this.aiService.deleteImage(id);
+    return { ok: true };
   }
 }
